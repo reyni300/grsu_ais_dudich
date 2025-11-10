@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  wordpress-dudich:
+    image: wordpress
+    restart: always
+    ports:
+      - "8080:80"
+    working_dir: /var/www/html
+    volumes:
+      - "/opt/wp-content:/var/www/html/wp-content"
+    environment:
+      WORDPRESS_DB_HOST: wordpressdb-familia:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - wordpressdb-dudich
+
+  wordpressdb-dudich:
+    image: mariadb:latest
+    restart: always
+    volumes:
+      - "/opt/mysql:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: Admin123!
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: WpAdmin123!
