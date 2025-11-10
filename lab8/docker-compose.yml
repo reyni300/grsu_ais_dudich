@@ -1,28 +1,18 @@
 version: '3.3'
+
 services:
-  wordpress-dudich:
-    image: wordpress
-    restart: always
+  joomla:
+    image: joomla:latest
     ports:
       - "8080:80"
-    working_dir: /var/www/html
-    volumes:
-      - "/opt/wp-content:/var/www/html/wp-content"
     environment:
-      WORDPRESS_DB_HOST: wordpressdb-familia:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
-      WORDPRESS_DB_NAME: wordpress
-    depends_on:
-      - wordpressdb-dudich
+      JOOMLA_DB_HOST: db
+      JOOMLA_DB_USER: root
+      JOOMLA_DB_PASSWORD: "Admin123!"
+      JOOMLA_DB_NAME: joomla
 
-  wordpressdb-dudich:
+  db:
     image: mariadb:latest
-    restart: always
-    volumes:
-      - "/opt/mysql:/var/lib/mysql"
     environment:
-      MYSQL_ROOT_PASSWORD: Admin123!
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: WpAdmin123!
+      MYSQL_ROOT_PASSWORD: "Admin123!"
+      MYSQL_DATABASE: joomla
